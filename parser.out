@@ -1,0 +1,4525 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+    IFS
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> LINE
+Rule 2     LINE -> IDX ; LINE
+Rule 3     LINE -> IFX LINE
+Rule 4     LINE -> WHILEX LINE
+Rule 5     LINE -> FORX LINE
+Rule 6     LINE -> RETURNX ; LINE
+Rule 7     LINE -> PRINTX ; LINE
+Rule 8     LINE -> BLOCK LINE
+Rule 9     LINE -> EMPTY
+Rule 10    NOTEMPTYLINE -> IDX ;
+Rule 11    NOTEMPTYLINE -> IFX
+Rule 12    NOTEMPTYLINE -> WHILEX
+Rule 13    NOTEMPTYLINE -> FORX
+Rule 14    NOTEMPTYLINE -> RETURNX ;
+Rule 15    NOTEMPTYLINE -> PRINTX ;
+Rule 16    BLOCK -> { LINE }
+Rule 17    EMPTY -> <empty>
+Rule 18    IDX -> ID = EXPRESSION
+Rule 19    IDX -> ID = MATRIX
+Rule 20    IDX -> ID = TABLE
+Rule 21    IDX -> ID [ EXPRESSION ] = EXPRESSION
+Rule 22    IDX -> ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+Rule 23    IDX -> ID ADDASSIGN EXPRESSION
+Rule 24    IDX -> ID SUBASSIGN EXPRESSION
+Rule 25    IDX -> ID MULASSIGN EXPRESSION
+Rule 26    IDX -> ID DIVASSIGN EXPRESSION
+Rule 27    ZEROSX -> ZEROS ( EXPRESSION )
+Rule 28    ONESX -> ONES ( EXPRESSION )
+Rule 29    EYEX -> EYE ( EXPRESSION )
+Rule 30    MATRIX -> [ MATRIXINSIDE ]
+Rule 31    MATRIX -> MATRIXEXPR
+Rule 32    MATRIX -> ZEROSX
+Rule 33    MATRIX -> ONESX
+Rule 34    MATRIX -> EYEX
+Rule 35    MATRIXINSIDE -> TABLE , MATRIXINSIDE
+Rule 36    MATRIXINSIDE -> TABLE
+Rule 37    TABLE -> [ VALUES ]
+Rule 38    VALUES -> EXPRESSION , VALUES
+Rule 39    VALUES -> EXPRESSION
+Rule 40    MATRIXEXPR -> EXPRESSION DOTADD EXPRESSION
+Rule 41    MATRIXEXPR -> EXPRESSION DOTSUB EXPRESSION
+Rule 42    MATRIXEXPR -> EXPRESSION DOTMUL EXPRESSION
+Rule 43    MATRIXEXPR -> EXPRESSION DOTDIV EXPRESSION
+Rule 44    MATRIXEXPR -> EXPRESSION '
+Rule 45    IFX -> IF ( CONDITION ) NOTEMPTYLINE
+Rule 46    IFX -> IF ( CONDITION ) BLOCK
+Rule 47    IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+Rule 48    IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+Rule 49    IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+Rule 50    IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK
+Rule 51    LOOPLINE -> IDX ; LOOPLINE
+Rule 52    LOOPLINE -> WHILEX LOOPLINE
+Rule 53    LOOPLINE -> FORX LOOPLINE
+Rule 54    LOOPLINE -> RETURNX ; LOOPLINE
+Rule 55    LOOPLINE -> PRINTX ; LOOPLINE
+Rule 56    LOOPLINE -> LOOPBLOCK
+Rule 57    LOOPLINE -> EMPTY
+Rule 58    LOOPLINE -> LOOPIFX LOOPLINE
+Rule 59    LOOPLINE -> BREAK ; LOOPLINE
+Rule 60    LOOPLINE -> CONTINUE ; LOOPLINE
+Rule 61    NOTEMPTYLOOPLINE -> IDX ;
+Rule 62    NOTEMPTYLOOPLINE -> WHILEX
+Rule 63    NOTEMPTYLOOPLINE -> FORX
+Rule 64    NOTEMPTYLOOPLINE -> RETURNX ;
+Rule 65    NOTEMPTYLOOPLINE -> PRINTX ;
+Rule 66    NOTEMPTYLOOPLINE -> LOOPIFX
+Rule 67    NOTEMPTYLOOPLINE -> BREAK ;
+Rule 68    NOTEMPTYLOOPLINE -> CONTINUE ;
+Rule 69    LOOPBLOCK -> { LOOPLINE }
+Rule 70    LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE
+Rule 71    LOOPIFX -> IF ( CONDITION ) LOOPBLOCK
+Rule 72    LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+Rule 73    LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+Rule 74    LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+Rule 75    LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+Rule 76    WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+Rule 77    WHILEX -> WHILE ( CONDITION ) LOOPBLOCK
+Rule 78    FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+Rule 79    FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+Rule 80    CONDITION -> EXPRESSION EQUAL EXPRESSION
+Rule 81    CONDITION -> EXPRESSION UNEQUAL EXPRESSION
+Rule 82    CONDITION -> EXPRESSION LESSEQUAL EXPRESSION
+Rule 83    CONDITION -> EXPRESSION GREATEREQUAL EXPRESSION
+Rule 84    CONDITION -> EXPRESSION > EXPRESSION
+Rule 85    CONDITION -> EXPRESSION < EXPRESSION
+Rule 86    PRINTX -> PRINT PRINTMANY
+Rule 87    PRINTMANY -> STRING
+Rule 88    PRINTMANY -> EXPRESSION
+Rule 89    PRINTMANY -> EXPRESSION , PRINTMANY
+Rule 90    PRINTMANY -> STRING , PRINTMANY
+Rule 91    RETURNX -> RETURN EXPRESSION
+Rule 92    EXPRESSION -> NUMBER
+Rule 93    EXPRESSION -> FLOATNUMBER
+Rule 94    EXPRESSION -> ID
+Rule 95    EXPRESSION -> EXPRESSION + EXPRESSION
+Rule 96    EXPRESSION -> EXPRESSION - EXPRESSION
+Rule 97    EXPRESSION -> EXPRESSION * EXPRESSION
+Rule 98    EXPRESSION -> EXPRESSION / EXPRESSION
+Rule 99    EXPRESSION -> ( EXPRESSION )
+Rule 100   EXPRESSION -> - EXPRESSION
+
+Terminals, with rules where they appear
+
+'                    : 44
+(                    : 27 28 29 45 46 47 48 49 50 70 71 72 73 74 75 76 77 99
+)                    : 27 28 29 45 46 47 48 49 50 70 71 72 73 74 75 76 77 99
+*                    : 97
++                    : 95
+,                    : 22 35 38 89 90
+-                    : 96 100
+/                    : 98
+:                    : 78 79
+;                    : 2 6 7 10 14 15 51 54 55 59 60 61 64 65 67 68
+<                    : 85
+=                    : 18 19 20 21 22 78 79
+>                    : 84
+ADDASSIGN            : 23
+BREAK                : 59 67
+COMMENT              : 
+CONTINUE             : 60 68
+DIVASSIGN            : 26
+DOTADD               : 40
+DOTDIV               : 43
+DOTMUL               : 42
+DOTSUB               : 41
+ELSE                 : 47 48 49 50 72 73 74 75
+EQUAL                : 80
+EYE                  : 29
+FLOATNUMBER          : 93
+FOR                  : 78 79
+GREATEREQUAL         : 83
+ID                   : 18 19 20 21 22 23 24 25 26 78 79 94
+IF                   : 45 46 47 48 49 50 70 71 72 73 74 75
+IFS                  : 
+LESSEQUAL            : 82
+MULASSIGN            : 25
+NUMBER               : 92
+ONES                 : 28
+PRINT                : 86
+RETURN               : 91
+STRING               : 87 90
+SUBASSIGN            : 24
+UNEQUAL              : 81
+WHILE                : 76 77
+ZEROS                : 27
+[                    : 21 22 30 37
+]                    : 21 22 30 37
+error                : 
+{                    : 16 69
+}                    : 16 69
+
+Nonterminals, with rules where they appear
+
+BLOCK                : 8 46 48 49 50 50
+CONDITION            : 45 46 47 48 49 50 70 71 72 73 74 75 76 77
+EMPTY                : 9 57
+EXPRESSION           : 18 21 21 22 22 22 23 24 25 26 27 28 29 38 39 40 40 41 41 42 42 43 43 44 78 78 79 79 80 80 81 81 82 82 83 83 84 84 85 85 88 89 91 95 95 96 96 97 97 98 98 99 100
+EYEX                 : 34
+FORX                 : 5 13 53 63
+IDX                  : 2 10 51 61
+IFX                  : 3 11
+LINE                 : 1 2 3 4 5 6 7 8 16
+LOOPBLOCK            : 56 71 73 74 75 75 77 79
+LOOPIFX              : 58 66
+LOOPLINE             : 51 52 53 54 55 58 59 60 69
+MATRIX               : 19
+MATRIXEXPR           : 31
+MATRIXINSIDE         : 30 35
+NOTEMPTYLINE         : 45 47 47 48 49
+NOTEMPTYLOOPLINE     : 70 72 72 73 74 76 78
+ONESX                : 33
+PRINTMANY            : 86 89 90
+PRINTX               : 7 15 55 65
+RETURNX              : 6 14 54 64
+TABLE                : 20 35 36
+VALUES               : 37 38
+WHILEX               : 4 12 52 62
+ZEROSX               : 32
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+
+    start                          shift and go to state 1
+    LINE                           shift and go to state 2
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> LINE .
+
+    $end            reduce using rule 1 (start -> LINE .)
+
+
+state 3
+
+    (2) LINE -> IDX . ; LINE
+
+    ;               shift and go to state 18
+
+
+state 4
+
+    (3) LINE -> IFX . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    IFX                            shift and go to state 4
+    LINE                           shift and go to state 19
+    IDX                            shift and go to state 3
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 5
+
+    (4) LINE -> WHILEX . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    WHILEX                         shift and go to state 5
+    LINE                           shift and go to state 20
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 6
+
+    (5) LINE -> FORX . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    FORX                           shift and go to state 6
+    LINE                           shift and go to state 21
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 7
+
+    (6) LINE -> RETURNX . ; LINE
+
+    ;               shift and go to state 22
+
+
+state 8
+
+    (7) LINE -> PRINTX . ; LINE
+
+    ;               shift and go to state 23
+
+
+state 9
+
+    (8) LINE -> BLOCK . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    BLOCK                          shift and go to state 9
+    LINE                           shift and go to state 24
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    EMPTY                          shift and go to state 10
+
+state 10
+
+    (9) LINE -> EMPTY .
+
+    $end            reduce using rule 9 (LINE -> EMPTY .)
+    }               reduce using rule 9 (LINE -> EMPTY .)
+
+
+state 11
+
+    (18) IDX -> ID . = EXPRESSION
+    (19) IDX -> ID . = MATRIX
+    (20) IDX -> ID . = TABLE
+    (21) IDX -> ID . [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> ID . [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> ID . ADDASSIGN EXPRESSION
+    (24) IDX -> ID . SUBASSIGN EXPRESSION
+    (25) IDX -> ID . MULASSIGN EXPRESSION
+    (26) IDX -> ID . DIVASSIGN EXPRESSION
+
+    =               shift and go to state 25
+    [               shift and go to state 26
+    ADDASSIGN       shift and go to state 27
+    SUBASSIGN       shift and go to state 28
+    MULASSIGN       shift and go to state 29
+    DIVASSIGN       shift and go to state 30
+
+
+state 12
+
+    (45) IFX -> IF . ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> IF . ( CONDITION ) BLOCK
+    (47) IFX -> IF . ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> IF . ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> IF . ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> IF . ( CONDITION ) BLOCK ELSE BLOCK
+
+    (               shift and go to state 31
+
+
+state 13
+
+    (76) WHILEX -> WHILE . ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> WHILE . ( CONDITION ) LOOPBLOCK
+
+    (               shift and go to state 32
+
+
+state 14
+
+    (78) FORX -> FOR . ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> FOR . ID = EXPRESSION : EXPRESSION LOOPBLOCK
+
+    ID              shift and go to state 33
+
+
+state 15
+
+    (91) RETURNX -> RETURN . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 34
+
+state 16
+
+    (86) PRINTX -> PRINT . PRINTMANY
+    (87) PRINTMANY -> . STRING
+    (88) PRINTMANY -> . EXPRESSION
+    (89) PRINTMANY -> . EXPRESSION , PRINTMANY
+    (90) PRINTMANY -> . STRING , PRINTMANY
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    STRING          shift and go to state 41
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    PRINTMANY                      shift and go to state 40
+    EXPRESSION                     shift and go to state 42
+
+state 17
+
+    (16) BLOCK -> { . LINE }
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    }               reduce using rule 17 (EMPTY -> .)
+
+    LINE                           shift and go to state 43
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 18
+
+    (2) LINE -> IDX ; . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    IDX                            shift and go to state 3
+    LINE                           shift and go to state 44
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 19
+
+    (3) LINE -> IFX LINE .
+
+    $end            reduce using rule 3 (LINE -> IFX LINE .)
+    }               reduce using rule 3 (LINE -> IFX LINE .)
+
+
+state 20
+
+    (4) LINE -> WHILEX LINE .
+
+    $end            reduce using rule 4 (LINE -> WHILEX LINE .)
+    }               reduce using rule 4 (LINE -> WHILEX LINE .)
+
+
+state 21
+
+    (5) LINE -> FORX LINE .
+
+    $end            reduce using rule 5 (LINE -> FORX LINE .)
+    }               reduce using rule 5 (LINE -> FORX LINE .)
+
+
+state 22
+
+    (6) LINE -> RETURNX ; . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    RETURNX                        shift and go to state 7
+    LINE                           shift and go to state 45
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    PRINTX                         shift and go to state 8
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 23
+
+    (7) LINE -> PRINTX ; . LINE
+    (2) LINE -> . IDX ; LINE
+    (3) LINE -> . IFX LINE
+    (4) LINE -> . WHILEX LINE
+    (5) LINE -> . FORX LINE
+    (6) LINE -> . RETURNX ; LINE
+    (7) LINE -> . PRINTX ; LINE
+    (8) LINE -> . BLOCK LINE
+    (9) LINE -> . EMPTY
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (16) BLOCK -> . { LINE }
+    (17) EMPTY -> .
+
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 17
+    $end            reduce using rule 17 (EMPTY -> .)
+    }               reduce using rule 17 (EMPTY -> .)
+
+    PRINTX                         shift and go to state 8
+    LINE                           shift and go to state 46
+    IDX                            shift and go to state 3
+    IFX                            shift and go to state 4
+    WHILEX                         shift and go to state 5
+    FORX                           shift and go to state 6
+    RETURNX                        shift and go to state 7
+    BLOCK                          shift and go to state 9
+    EMPTY                          shift and go to state 10
+
+state 24
+
+    (8) LINE -> BLOCK LINE .
+
+    $end            reduce using rule 8 (LINE -> BLOCK LINE .)
+    }               reduce using rule 8 (LINE -> BLOCK LINE .)
+
+
+state 25
+
+    (18) IDX -> ID = . EXPRESSION
+    (19) IDX -> ID = . MATRIX
+    (20) IDX -> ID = . TABLE
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+    (30) MATRIX -> . [ MATRIXINSIDE ]
+    (31) MATRIX -> . MATRIXEXPR
+    (32) MATRIX -> . ZEROSX
+    (33) MATRIX -> . ONESX
+    (34) MATRIX -> . EYEX
+    (37) TABLE -> . [ VALUES ]
+    (40) MATRIXEXPR -> . EXPRESSION DOTADD EXPRESSION
+    (41) MATRIXEXPR -> . EXPRESSION DOTSUB EXPRESSION
+    (42) MATRIXEXPR -> . EXPRESSION DOTMUL EXPRESSION
+    (43) MATRIXEXPR -> . EXPRESSION DOTDIV EXPRESSION
+    (44) MATRIXEXPR -> . EXPRESSION '
+    (27) ZEROSX -> . ZEROS ( EXPRESSION )
+    (28) ONESX -> . ONES ( EXPRESSION )
+    (29) EYEX -> . EYE ( EXPRESSION )
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+    [               shift and go to state 50
+    ZEROS           shift and go to state 55
+    ONES            shift and go to state 56
+    EYE             shift and go to state 57
+
+    EXPRESSION                     shift and go to state 47
+    MATRIX                         shift and go to state 48
+    TABLE                          shift and go to state 49
+    MATRIXEXPR                     shift and go to state 51
+    ZEROSX                         shift and go to state 52
+    ONESX                          shift and go to state 53
+    EYEX                           shift and go to state 54
+
+state 26
+
+    (21) IDX -> ID [ . EXPRESSION ] = EXPRESSION
+    (22) IDX -> ID [ . EXPRESSION , EXPRESSION ] = EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 58
+
+state 27
+
+    (23) IDX -> ID ADDASSIGN . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 59
+
+state 28
+
+    (24) IDX -> ID SUBASSIGN . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 60
+
+state 29
+
+    (25) IDX -> ID MULASSIGN . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 61
+
+state 30
+
+    (26) IDX -> ID DIVASSIGN . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 62
+
+state 31
+
+    (45) IFX -> IF ( . CONDITION ) NOTEMPTYLINE
+    (46) IFX -> IF ( . CONDITION ) BLOCK
+    (47) IFX -> IF ( . CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> IF ( . CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> IF ( . CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> IF ( . CONDITION ) BLOCK ELSE BLOCK
+    (80) CONDITION -> . EXPRESSION EQUAL EXPRESSION
+    (81) CONDITION -> . EXPRESSION UNEQUAL EXPRESSION
+    (82) CONDITION -> . EXPRESSION LESSEQUAL EXPRESSION
+    (83) CONDITION -> . EXPRESSION GREATEREQUAL EXPRESSION
+    (84) CONDITION -> . EXPRESSION > EXPRESSION
+    (85) CONDITION -> . EXPRESSION < EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    CONDITION                      shift and go to state 63
+    EXPRESSION                     shift and go to state 64
+
+state 32
+
+    (76) WHILEX -> WHILE ( . CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> WHILE ( . CONDITION ) LOOPBLOCK
+    (80) CONDITION -> . EXPRESSION EQUAL EXPRESSION
+    (81) CONDITION -> . EXPRESSION UNEQUAL EXPRESSION
+    (82) CONDITION -> . EXPRESSION LESSEQUAL EXPRESSION
+    (83) CONDITION -> . EXPRESSION GREATEREQUAL EXPRESSION
+    (84) CONDITION -> . EXPRESSION > EXPRESSION
+    (85) CONDITION -> . EXPRESSION < EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    CONDITION                      shift and go to state 65
+    EXPRESSION                     shift and go to state 64
+
+state 33
+
+    (78) FORX -> FOR ID . = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> FOR ID . = EXPRESSION : EXPRESSION LOOPBLOCK
+
+    =               shift and go to state 66
+
+
+state 34
+
+    (91) RETURNX -> RETURN EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 91 (RETURNX -> RETURN EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 35
+
+    (92) EXPRESSION -> NUMBER .
+
+    +               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    -               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    *               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    /               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    ;               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    ,               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    DOTADD          reduce using rule 92 (EXPRESSION -> NUMBER .)
+    DOTSUB          reduce using rule 92 (EXPRESSION -> NUMBER .)
+    DOTMUL          reduce using rule 92 (EXPRESSION -> NUMBER .)
+    DOTDIV          reduce using rule 92 (EXPRESSION -> NUMBER .)
+    '               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    ]               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    EQUAL           reduce using rule 92 (EXPRESSION -> NUMBER .)
+    UNEQUAL         reduce using rule 92 (EXPRESSION -> NUMBER .)
+    LESSEQUAL       reduce using rule 92 (EXPRESSION -> NUMBER .)
+    GREATEREQUAL    reduce using rule 92 (EXPRESSION -> NUMBER .)
+    >               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    <               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    )               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    :               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    BREAK           reduce using rule 92 (EXPRESSION -> NUMBER .)
+    CONTINUE        reduce using rule 92 (EXPRESSION -> NUMBER .)
+    {               reduce using rule 92 (EXPRESSION -> NUMBER .)
+    ID              reduce using rule 92 (EXPRESSION -> NUMBER .)
+    WHILE           reduce using rule 92 (EXPRESSION -> NUMBER .)
+    FOR             reduce using rule 92 (EXPRESSION -> NUMBER .)
+    RETURN          reduce using rule 92 (EXPRESSION -> NUMBER .)
+    PRINT           reduce using rule 92 (EXPRESSION -> NUMBER .)
+    IF              reduce using rule 92 (EXPRESSION -> NUMBER .)
+
+
+state 36
+
+    (93) EXPRESSION -> FLOATNUMBER .
+
+    +               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    -               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    *               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    /               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    ;               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    ,               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    DOTADD          reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    DOTSUB          reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    DOTMUL          reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    DOTDIV          reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    '               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    ]               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    EQUAL           reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    UNEQUAL         reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    LESSEQUAL       reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    GREATEREQUAL    reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    >               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    <               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    )               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    :               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    BREAK           reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    CONTINUE        reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    {               reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    ID              reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    WHILE           reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    FOR             reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    RETURN          reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    PRINT           reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+    IF              reduce using rule 93 (EXPRESSION -> FLOATNUMBER .)
+
+
+state 37
+
+    (94) EXPRESSION -> ID .
+
+    +               reduce using rule 94 (EXPRESSION -> ID .)
+    -               reduce using rule 94 (EXPRESSION -> ID .)
+    *               reduce using rule 94 (EXPRESSION -> ID .)
+    /               reduce using rule 94 (EXPRESSION -> ID .)
+    ;               reduce using rule 94 (EXPRESSION -> ID .)
+    ,               reduce using rule 94 (EXPRESSION -> ID .)
+    DOTADD          reduce using rule 94 (EXPRESSION -> ID .)
+    DOTSUB          reduce using rule 94 (EXPRESSION -> ID .)
+    DOTMUL          reduce using rule 94 (EXPRESSION -> ID .)
+    DOTDIV          reduce using rule 94 (EXPRESSION -> ID .)
+    '               reduce using rule 94 (EXPRESSION -> ID .)
+    ]               reduce using rule 94 (EXPRESSION -> ID .)
+    EQUAL           reduce using rule 94 (EXPRESSION -> ID .)
+    UNEQUAL         reduce using rule 94 (EXPRESSION -> ID .)
+    LESSEQUAL       reduce using rule 94 (EXPRESSION -> ID .)
+    GREATEREQUAL    reduce using rule 94 (EXPRESSION -> ID .)
+    >               reduce using rule 94 (EXPRESSION -> ID .)
+    <               reduce using rule 94 (EXPRESSION -> ID .)
+    )               reduce using rule 94 (EXPRESSION -> ID .)
+    :               reduce using rule 94 (EXPRESSION -> ID .)
+    BREAK           reduce using rule 94 (EXPRESSION -> ID .)
+    CONTINUE        reduce using rule 94 (EXPRESSION -> ID .)
+    {               reduce using rule 94 (EXPRESSION -> ID .)
+    ID              reduce using rule 94 (EXPRESSION -> ID .)
+    WHILE           reduce using rule 94 (EXPRESSION -> ID .)
+    FOR             reduce using rule 94 (EXPRESSION -> ID .)
+    RETURN          reduce using rule 94 (EXPRESSION -> ID .)
+    PRINT           reduce using rule 94 (EXPRESSION -> ID .)
+    IF              reduce using rule 94 (EXPRESSION -> ID .)
+
+
+state 38
+
+    (100) EXPRESSION -> - . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 71
+
+state 39
+
+    (99) EXPRESSION -> ( . EXPRESSION )
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 72
+
+state 40
+
+    (86) PRINTX -> PRINT PRINTMANY .
+
+    ;               reduce using rule 86 (PRINTX -> PRINT PRINTMANY .)
+
+
+state 41
+
+    (87) PRINTMANY -> STRING .
+    (90) PRINTMANY -> STRING . , PRINTMANY
+
+    ;               reduce using rule 87 (PRINTMANY -> STRING .)
+    ,               shift and go to state 73
+
+
+state 42
+
+    (88) PRINTMANY -> EXPRESSION .
+    (89) PRINTMANY -> EXPRESSION . , PRINTMANY
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 88 (PRINTMANY -> EXPRESSION .)
+    ,               shift and go to state 74
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 43
+
+    (16) BLOCK -> { LINE . }
+
+    }               shift and go to state 75
+
+
+state 44
+
+    (2) LINE -> IDX ; LINE .
+
+    $end            reduce using rule 2 (LINE -> IDX ; LINE .)
+    }               reduce using rule 2 (LINE -> IDX ; LINE .)
+
+
+state 45
+
+    (6) LINE -> RETURNX ; LINE .
+
+    $end            reduce using rule 6 (LINE -> RETURNX ; LINE .)
+    }               reduce using rule 6 (LINE -> RETURNX ; LINE .)
+
+
+state 46
+
+    (7) LINE -> PRINTX ; LINE .
+
+    $end            reduce using rule 7 (LINE -> PRINTX ; LINE .)
+    }               reduce using rule 7 (LINE -> PRINTX ; LINE .)
+
+
+state 47
+
+    (18) IDX -> ID = EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+    (40) MATRIXEXPR -> EXPRESSION . DOTADD EXPRESSION
+    (41) MATRIXEXPR -> EXPRESSION . DOTSUB EXPRESSION
+    (42) MATRIXEXPR -> EXPRESSION . DOTMUL EXPRESSION
+    (43) MATRIXEXPR -> EXPRESSION . DOTDIV EXPRESSION
+    (44) MATRIXEXPR -> EXPRESSION . '
+
+    ;               reduce using rule 18 (IDX -> ID = EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+    DOTADD          shift and go to state 76
+    DOTSUB          shift and go to state 77
+    DOTMUL          shift and go to state 78
+    DOTDIV          shift and go to state 79
+    '               shift and go to state 80
+
+
+state 48
+
+    (19) IDX -> ID = MATRIX .
+
+    ;               reduce using rule 19 (IDX -> ID = MATRIX .)
+
+
+state 49
+
+    (20) IDX -> ID = TABLE .
+
+    ;               reduce using rule 20 (IDX -> ID = TABLE .)
+
+
+state 50
+
+    (30) MATRIX -> [ . MATRIXINSIDE ]
+    (37) TABLE -> [ . VALUES ]
+    (35) MATRIXINSIDE -> . TABLE , MATRIXINSIDE
+    (36) MATRIXINSIDE -> . TABLE
+    (38) VALUES -> . EXPRESSION , VALUES
+    (39) VALUES -> . EXPRESSION
+    (37) TABLE -> . [ VALUES ]
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    [               shift and go to state 81
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    MATRIXINSIDE                   shift and go to state 82
+    VALUES                         shift and go to state 83
+    TABLE                          shift and go to state 84
+    EXPRESSION                     shift and go to state 85
+
+state 51
+
+    (31) MATRIX -> MATRIXEXPR .
+
+    ;               reduce using rule 31 (MATRIX -> MATRIXEXPR .)
+
+
+state 52
+
+    (32) MATRIX -> ZEROSX .
+
+    ;               reduce using rule 32 (MATRIX -> ZEROSX .)
+
+
+state 53
+
+    (33) MATRIX -> ONESX .
+
+    ;               reduce using rule 33 (MATRIX -> ONESX .)
+
+
+state 54
+
+    (34) MATRIX -> EYEX .
+
+    ;               reduce using rule 34 (MATRIX -> EYEX .)
+
+
+state 55
+
+    (27) ZEROSX -> ZEROS . ( EXPRESSION )
+
+    (               shift and go to state 86
+
+
+state 56
+
+    (28) ONESX -> ONES . ( EXPRESSION )
+
+    (               shift and go to state 87
+
+
+state 57
+
+    (29) EYEX -> EYE . ( EXPRESSION )
+
+    (               shift and go to state 88
+
+
+state 58
+
+    (21) IDX -> ID [ EXPRESSION . ] = EXPRESSION
+    (22) IDX -> ID [ EXPRESSION . , EXPRESSION ] = EXPRESSION
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ]               shift and go to state 89
+    ,               shift and go to state 90
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 59
+
+    (23) IDX -> ID ADDASSIGN EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 23 (IDX -> ID ADDASSIGN EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 60
+
+    (24) IDX -> ID SUBASSIGN EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 24 (IDX -> ID SUBASSIGN EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 61
+
+    (25) IDX -> ID MULASSIGN EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 25 (IDX -> ID MULASSIGN EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 62
+
+    (26) IDX -> ID DIVASSIGN EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 26 (IDX -> ID DIVASSIGN EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 63
+
+    (45) IFX -> IF ( CONDITION . ) NOTEMPTYLINE
+    (46) IFX -> IF ( CONDITION . ) BLOCK
+    (47) IFX -> IF ( CONDITION . ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> IF ( CONDITION . ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> IF ( CONDITION . ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> IF ( CONDITION . ) BLOCK ELSE BLOCK
+
+    )               shift and go to state 91
+
+
+state 64
+
+    (80) CONDITION -> EXPRESSION . EQUAL EXPRESSION
+    (81) CONDITION -> EXPRESSION . UNEQUAL EXPRESSION
+    (82) CONDITION -> EXPRESSION . LESSEQUAL EXPRESSION
+    (83) CONDITION -> EXPRESSION . GREATEREQUAL EXPRESSION
+    (84) CONDITION -> EXPRESSION . > EXPRESSION
+    (85) CONDITION -> EXPRESSION . < EXPRESSION
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    EQUAL           shift and go to state 92
+    UNEQUAL         shift and go to state 93
+    LESSEQUAL       shift and go to state 94
+    GREATEREQUAL    shift and go to state 95
+    >               shift and go to state 96
+    <               shift and go to state 97
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 65
+
+    (76) WHILEX -> WHILE ( CONDITION . ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> WHILE ( CONDITION . ) LOOPBLOCK
+
+    )               shift and go to state 98
+
+
+state 66
+
+    (78) FORX -> FOR ID = . EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> FOR ID = . EXPRESSION : EXPRESSION LOOPBLOCK
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 99
+
+state 67
+
+    (95) EXPRESSION -> EXPRESSION + . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 100
+
+state 68
+
+    (96) EXPRESSION -> EXPRESSION - . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 101
+
+state 69
+
+    (97) EXPRESSION -> EXPRESSION * . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 102
+
+state 70
+
+    (98) EXPRESSION -> EXPRESSION / . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 103
+
+state 71
+
+    (100) EXPRESSION -> - EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    +               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    -               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    ;               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    ,               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    DOTADD          reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    DOTSUB          reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    DOTMUL          reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    DOTDIV          reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    '               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    ]               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    EQUAL           reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    UNEQUAL         reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    LESSEQUAL       reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    GREATEREQUAL    reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    >               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    <               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    )               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    :               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    BREAK           reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    CONTINUE        reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    {               reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    ID              reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    WHILE           reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    FOR             reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    RETURN          reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    PRINT           reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    IF              reduce using rule 100 (EXPRESSION -> - EXPRESSION .)
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+  ! *               [ reduce using rule 100 (EXPRESSION -> - EXPRESSION .) ]
+  ! /               [ reduce using rule 100 (EXPRESSION -> - EXPRESSION .) ]
+  ! +               [ shift and go to state 67 ]
+  ! -               [ shift and go to state 68 ]
+
+
+state 72
+
+    (99) EXPRESSION -> ( EXPRESSION . )
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               shift and go to state 104
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 73
+
+    (90) PRINTMANY -> STRING , . PRINTMANY
+    (87) PRINTMANY -> . STRING
+    (88) PRINTMANY -> . EXPRESSION
+    (89) PRINTMANY -> . EXPRESSION , PRINTMANY
+    (90) PRINTMANY -> . STRING , PRINTMANY
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    STRING          shift and go to state 41
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    PRINTMANY                      shift and go to state 105
+    EXPRESSION                     shift and go to state 42
+
+state 74
+
+    (89) PRINTMANY -> EXPRESSION , . PRINTMANY
+    (87) PRINTMANY -> . STRING
+    (88) PRINTMANY -> . EXPRESSION
+    (89) PRINTMANY -> . EXPRESSION , PRINTMANY
+    (90) PRINTMANY -> . STRING , PRINTMANY
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    STRING          shift and go to state 41
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 42
+    PRINTMANY                      shift and go to state 106
+
+state 75
+
+    (16) BLOCK -> { LINE } .
+
+    ID              reduce using rule 16 (BLOCK -> { LINE } .)
+    IF              reduce using rule 16 (BLOCK -> { LINE } .)
+    WHILE           reduce using rule 16 (BLOCK -> { LINE } .)
+    FOR             reduce using rule 16 (BLOCK -> { LINE } .)
+    RETURN          reduce using rule 16 (BLOCK -> { LINE } .)
+    PRINT           reduce using rule 16 (BLOCK -> { LINE } .)
+    {               reduce using rule 16 (BLOCK -> { LINE } .)
+    $end            reduce using rule 16 (BLOCK -> { LINE } .)
+    }               reduce using rule 16 (BLOCK -> { LINE } .)
+    ELSE            reduce using rule 16 (BLOCK -> { LINE } .)
+
+
+state 76
+
+    (40) MATRIXEXPR -> EXPRESSION DOTADD . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 107
+
+state 77
+
+    (41) MATRIXEXPR -> EXPRESSION DOTSUB . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 108
+
+state 78
+
+    (42) MATRIXEXPR -> EXPRESSION DOTMUL . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 109
+
+state 79
+
+    (43) MATRIXEXPR -> EXPRESSION DOTDIV . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 110
+
+state 80
+
+    (44) MATRIXEXPR -> EXPRESSION ' .
+
+    ;               reduce using rule 44 (MATRIXEXPR -> EXPRESSION ' .)
+
+
+state 81
+
+    (37) TABLE -> [ . VALUES ]
+    (38) VALUES -> . EXPRESSION , VALUES
+    (39) VALUES -> . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    VALUES                         shift and go to state 83
+    EXPRESSION                     shift and go to state 85
+
+state 82
+
+    (30) MATRIX -> [ MATRIXINSIDE . ]
+
+    ]               shift and go to state 111
+
+
+state 83
+
+    (37) TABLE -> [ VALUES . ]
+
+    ]               shift and go to state 112
+
+
+state 84
+
+    (35) MATRIXINSIDE -> TABLE . , MATRIXINSIDE
+    (36) MATRIXINSIDE -> TABLE .
+
+    ,               shift and go to state 113
+    ]               reduce using rule 36 (MATRIXINSIDE -> TABLE .)
+
+
+state 85
+
+    (38) VALUES -> EXPRESSION . , VALUES
+    (39) VALUES -> EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ,               shift and go to state 114
+    ]               reduce using rule 39 (VALUES -> EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 86
+
+    (27) ZEROSX -> ZEROS ( . EXPRESSION )
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 115
+
+state 87
+
+    (28) ONESX -> ONES ( . EXPRESSION )
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 116
+
+state 88
+
+    (29) EYEX -> EYE ( . EXPRESSION )
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 117
+
+state 89
+
+    (21) IDX -> ID [ EXPRESSION ] . = EXPRESSION
+
+    =               shift and go to state 118
+
+
+state 90
+
+    (22) IDX -> ID [ EXPRESSION , . EXPRESSION ] = EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 119
+
+state 91
+
+    (45) IFX -> IF ( CONDITION ) . NOTEMPTYLINE
+    (46) IFX -> IF ( CONDITION ) . BLOCK
+    (47) IFX -> IF ( CONDITION ) . NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> IF ( CONDITION ) . NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> IF ( CONDITION ) . BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> IF ( CONDITION ) . BLOCK ELSE BLOCK
+    (10) NOTEMPTYLINE -> . IDX ;
+    (11) NOTEMPTYLINE -> . IFX
+    (12) NOTEMPTYLINE -> . WHILEX
+    (13) NOTEMPTYLINE -> . FORX
+    (14) NOTEMPTYLINE -> . RETURNX ;
+    (15) NOTEMPTYLINE -> . PRINTX ;
+    (16) BLOCK -> . { LINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+
+    {               shift and go to state 17
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+
+    NOTEMPTYLINE                   shift and go to state 120
+    BLOCK                          shift and go to state 121
+    IDX                            shift and go to state 122
+    IFX                            shift and go to state 123
+    WHILEX                         shift and go to state 124
+    FORX                           shift and go to state 125
+    RETURNX                        shift and go to state 126
+    PRINTX                         shift and go to state 127
+
+state 92
+
+    (80) CONDITION -> EXPRESSION EQUAL . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 128
+
+state 93
+
+    (81) CONDITION -> EXPRESSION UNEQUAL . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 129
+
+state 94
+
+    (82) CONDITION -> EXPRESSION LESSEQUAL . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 130
+
+state 95
+
+    (83) CONDITION -> EXPRESSION GREATEREQUAL . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 131
+
+state 96
+
+    (84) CONDITION -> EXPRESSION > . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 132
+
+state 97
+
+    (85) CONDITION -> EXPRESSION < . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 133
+
+state 98
+
+    (76) WHILEX -> WHILE ( CONDITION ) . NOTEMPTYLOOPLINE
+    (77) WHILEX -> WHILE ( CONDITION ) . LOOPBLOCK
+    (61) NOTEMPTYLOOPLINE -> . IDX ;
+    (62) NOTEMPTYLOOPLINE -> . WHILEX
+    (63) NOTEMPTYLOOPLINE -> . FORX
+    (64) NOTEMPTYLOOPLINE -> . RETURNX ;
+    (65) NOTEMPTYLOOPLINE -> . PRINTX ;
+    (66) NOTEMPTYLOOPLINE -> . LOOPIFX
+    (67) NOTEMPTYLOOPLINE -> . BREAK ;
+    (68) NOTEMPTYLOOPLINE -> . CONTINUE ;
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 142
+    CONTINUE        shift and go to state 143
+    {               shift and go to state 144
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    IF              shift and go to state 145
+
+    NOTEMPTYLOOPLINE               shift and go to state 134
+    LOOPBLOCK                      shift and go to state 135
+    IDX                            shift and go to state 136
+    WHILEX                         shift and go to state 137
+    FORX                           shift and go to state 138
+    RETURNX                        shift and go to state 139
+    PRINTX                         shift and go to state 140
+    LOOPIFX                        shift and go to state 141
+
+state 99
+
+    (78) FORX -> FOR ID = EXPRESSION . : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> FOR ID = EXPRESSION . : EXPRESSION LOOPBLOCK
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    :               shift and go to state 146
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 100
+
+    (95) EXPRESSION -> EXPRESSION + EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    +               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    -               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    ;               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    ,               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    DOTADD          reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    DOTSUB          reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    DOTMUL          reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    DOTDIV          reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    '               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    ]               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    EQUAL           reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    UNEQUAL         reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    LESSEQUAL       reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    GREATEREQUAL    reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    >               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    <               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    )               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    :               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    BREAK           reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    CONTINUE        reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    {               reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    ID              reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    WHILE           reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    FOR             reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    RETURN          reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    PRINT           reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    IF              reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .)
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+  ! *               [ reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .) ]
+  ! /               [ reduce using rule 95 (EXPRESSION -> EXPRESSION + EXPRESSION .) ]
+  ! +               [ shift and go to state 67 ]
+  ! -               [ shift and go to state 68 ]
+
+
+state 101
+
+    (96) EXPRESSION -> EXPRESSION - EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    +               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    -               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    ;               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    ,               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    DOTADD          reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    DOTSUB          reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    DOTMUL          reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    DOTDIV          reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    '               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    ]               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    EQUAL           reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    UNEQUAL         reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    LESSEQUAL       reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    GREATEREQUAL    reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    >               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    <               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    )               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    :               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    BREAK           reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    CONTINUE        reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    {               reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    ID              reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    WHILE           reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    FOR             reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    RETURN          reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    PRINT           reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    IF              reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .)
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+  ! *               [ reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .) ]
+  ! /               [ reduce using rule 96 (EXPRESSION -> EXPRESSION - EXPRESSION .) ]
+  ! +               [ shift and go to state 67 ]
+  ! -               [ shift and go to state 68 ]
+
+
+state 102
+
+    (97) EXPRESSION -> EXPRESSION * EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    +               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    -               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    *               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    /               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    ;               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    ,               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    DOTADD          reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    DOTSUB          reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    DOTMUL          reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    DOTDIV          reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    '               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    ]               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    EQUAL           reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    UNEQUAL         reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    LESSEQUAL       reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    GREATEREQUAL    reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    >               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    <               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    )               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    :               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    BREAK           reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    CONTINUE        reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    {               reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    ID              reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    WHILE           reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    FOR             reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    RETURN          reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    PRINT           reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+    IF              reduce using rule 97 (EXPRESSION -> EXPRESSION * EXPRESSION .)
+
+  ! +               [ shift and go to state 67 ]
+  ! -               [ shift and go to state 68 ]
+  ! *               [ shift and go to state 69 ]
+  ! /               [ shift and go to state 70 ]
+
+
+state 103
+
+    (98) EXPRESSION -> EXPRESSION / EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    +               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    -               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    *               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    /               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    ;               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    ,               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    DOTADD          reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    DOTSUB          reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    DOTMUL          reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    DOTDIV          reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    '               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    ]               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    EQUAL           reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    UNEQUAL         reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    LESSEQUAL       reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    GREATEREQUAL    reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    >               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    <               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    )               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    :               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    BREAK           reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    CONTINUE        reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    {               reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    ID              reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    WHILE           reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    FOR             reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    RETURN          reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    PRINT           reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+    IF              reduce using rule 98 (EXPRESSION -> EXPRESSION / EXPRESSION .)
+
+  ! +               [ shift and go to state 67 ]
+  ! -               [ shift and go to state 68 ]
+  ! *               [ shift and go to state 69 ]
+  ! /               [ shift and go to state 70 ]
+
+
+state 104
+
+    (99) EXPRESSION -> ( EXPRESSION ) .
+
+    +               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    -               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    *               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    /               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    ;               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    ,               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    DOTADD          reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    DOTSUB          reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    DOTMUL          reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    DOTDIV          reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    '               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    ]               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    EQUAL           reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    UNEQUAL         reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    LESSEQUAL       reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    GREATEREQUAL    reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    >               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    <               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    )               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    :               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    BREAK           reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    CONTINUE        reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    {               reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    ID              reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    WHILE           reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    FOR             reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    RETURN          reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    PRINT           reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+    IF              reduce using rule 99 (EXPRESSION -> ( EXPRESSION ) .)
+
+
+state 105
+
+    (90) PRINTMANY -> STRING , PRINTMANY .
+
+    ;               reduce using rule 90 (PRINTMANY -> STRING , PRINTMANY .)
+
+
+state 106
+
+    (89) PRINTMANY -> EXPRESSION , PRINTMANY .
+
+    ;               reduce using rule 89 (PRINTMANY -> EXPRESSION , PRINTMANY .)
+
+
+state 107
+
+    (40) MATRIXEXPR -> EXPRESSION DOTADD EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 40 (MATRIXEXPR -> EXPRESSION DOTADD EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 108
+
+    (41) MATRIXEXPR -> EXPRESSION DOTSUB EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 41 (MATRIXEXPR -> EXPRESSION DOTSUB EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 109
+
+    (42) MATRIXEXPR -> EXPRESSION DOTMUL EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 42 (MATRIXEXPR -> EXPRESSION DOTMUL EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 110
+
+    (43) MATRIXEXPR -> EXPRESSION DOTDIV EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 43 (MATRIXEXPR -> EXPRESSION DOTDIV EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 111
+
+    (30) MATRIX -> [ MATRIXINSIDE ] .
+
+    ;               reduce using rule 30 (MATRIX -> [ MATRIXINSIDE ] .)
+
+
+state 112
+
+    (37) TABLE -> [ VALUES ] .
+
+    ;               reduce using rule 37 (TABLE -> [ VALUES ] .)
+    ,               reduce using rule 37 (TABLE -> [ VALUES ] .)
+    ]               reduce using rule 37 (TABLE -> [ VALUES ] .)
+
+
+state 113
+
+    (35) MATRIXINSIDE -> TABLE , . MATRIXINSIDE
+    (35) MATRIXINSIDE -> . TABLE , MATRIXINSIDE
+    (36) MATRIXINSIDE -> . TABLE
+    (37) TABLE -> . [ VALUES ]
+
+    [               shift and go to state 81
+
+    TABLE                          shift and go to state 84
+    MATRIXINSIDE                   shift and go to state 147
+
+state 114
+
+    (38) VALUES -> EXPRESSION , . VALUES
+    (38) VALUES -> . EXPRESSION , VALUES
+    (39) VALUES -> . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 85
+    VALUES                         shift and go to state 148
+
+state 115
+
+    (27) ZEROSX -> ZEROS ( EXPRESSION . )
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               shift and go to state 149
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 116
+
+    (28) ONESX -> ONES ( EXPRESSION . )
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               shift and go to state 150
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 117
+
+    (29) EYEX -> EYE ( EXPRESSION . )
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               shift and go to state 151
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 118
+
+    (21) IDX -> ID [ EXPRESSION ] = . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 152
+
+state 119
+
+    (22) IDX -> ID [ EXPRESSION , EXPRESSION . ] = EXPRESSION
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ]               shift and go to state 153
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 120
+
+    (45) IFX -> IF ( CONDITION ) NOTEMPTYLINE .
+    (47) IFX -> IF ( CONDITION ) NOTEMPTYLINE . ELSE NOTEMPTYLINE
+    (48) IFX -> IF ( CONDITION ) NOTEMPTYLINE . ELSE BLOCK
+
+    ID              reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    IF              reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    WHILE           reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    FOR             reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    RETURN          reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    PRINT           reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    {               reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    $end            reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    }               reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .)
+    ELSE            shift and go to state 154
+
+  ! ELSE            [ reduce using rule 45 (IFX -> IF ( CONDITION ) NOTEMPTYLINE .) ]
+
+
+state 121
+
+    (46) IFX -> IF ( CONDITION ) BLOCK .
+    (49) IFX -> IF ( CONDITION ) BLOCK . ELSE NOTEMPTYLINE
+    (50) IFX -> IF ( CONDITION ) BLOCK . ELSE BLOCK
+
+    ID              reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    IF              reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    WHILE           reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    FOR             reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    RETURN          reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    PRINT           reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    {               reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    $end            reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    }               reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .)
+    ELSE            shift and go to state 155
+
+  ! ELSE            [ reduce using rule 46 (IFX -> IF ( CONDITION ) BLOCK .) ]
+
+
+state 122
+
+    (10) NOTEMPTYLINE -> IDX . ;
+
+    ;               shift and go to state 156
+
+
+state 123
+
+    (11) NOTEMPTYLINE -> IFX .
+
+    ELSE            reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    ID              reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    IF              reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    WHILE           reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    FOR             reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    RETURN          reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    PRINT           reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    {               reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    $end            reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+    }               reduce using rule 11 (NOTEMPTYLINE -> IFX .)
+
+
+state 124
+
+    (12) NOTEMPTYLINE -> WHILEX .
+
+    ELSE            reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    ID              reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    IF              reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    WHILE           reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    FOR             reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    RETURN          reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    PRINT           reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    {               reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    $end            reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+    }               reduce using rule 12 (NOTEMPTYLINE -> WHILEX .)
+
+
+state 125
+
+    (13) NOTEMPTYLINE -> FORX .
+
+    ELSE            reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    ID              reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    IF              reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    WHILE           reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    FOR             reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    RETURN          reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    PRINT           reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    {               reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    $end            reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+    }               reduce using rule 13 (NOTEMPTYLINE -> FORX .)
+
+
+state 126
+
+    (14) NOTEMPTYLINE -> RETURNX . ;
+
+    ;               shift and go to state 157
+
+
+state 127
+
+    (15) NOTEMPTYLINE -> PRINTX . ;
+
+    ;               shift and go to state 158
+
+
+state 128
+
+    (80) CONDITION -> EXPRESSION EQUAL EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 80 (CONDITION -> EXPRESSION EQUAL EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 129
+
+    (81) CONDITION -> EXPRESSION UNEQUAL EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 81 (CONDITION -> EXPRESSION UNEQUAL EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 130
+
+    (82) CONDITION -> EXPRESSION LESSEQUAL EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 82 (CONDITION -> EXPRESSION LESSEQUAL EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 131
+
+    (83) CONDITION -> EXPRESSION GREATEREQUAL EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 83 (CONDITION -> EXPRESSION GREATEREQUAL EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 132
+
+    (84) CONDITION -> EXPRESSION > EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 84 (CONDITION -> EXPRESSION > EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 133
+
+    (85) CONDITION -> EXPRESSION < EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    )               reduce using rule 85 (CONDITION -> EXPRESSION < EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 134
+
+    (76) WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .
+
+    ID              reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    IF              reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    WHILE           reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    FOR             reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    RETURN          reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    PRINT           reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    {               reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    $end            reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    }               reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    ELSE            reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    BREAK           reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+    CONTINUE        reduce using rule 76 (WHILEX -> WHILE ( CONDITION ) NOTEMPTYLOOPLINE .)
+
+
+state 135
+
+    (77) WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .
+
+    ID              reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    IF              reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    WHILE           reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    FOR             reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    RETURN          reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    PRINT           reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    {               reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    $end            reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    }               reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    ELSE            reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    BREAK           reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+    CONTINUE        reduce using rule 77 (WHILEX -> WHILE ( CONDITION ) LOOPBLOCK .)
+
+
+state 136
+
+    (61) NOTEMPTYLOOPLINE -> IDX . ;
+
+    ;               shift and go to state 159
+
+
+state 137
+
+    (62) NOTEMPTYLOOPLINE -> WHILEX .
+
+    ID              reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    IF              reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    WHILE           reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    FOR             reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    RETURN          reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    PRINT           reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    {               reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    $end            reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    }               reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    ELSE            reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    BREAK           reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+    CONTINUE        reduce using rule 62 (NOTEMPTYLOOPLINE -> WHILEX .)
+
+
+state 138
+
+    (63) NOTEMPTYLOOPLINE -> FORX .
+
+    ID              reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    IF              reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    WHILE           reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    FOR             reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    RETURN          reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    PRINT           reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    {               reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    $end            reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    }               reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    ELSE            reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    BREAK           reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+    CONTINUE        reduce using rule 63 (NOTEMPTYLOOPLINE -> FORX .)
+
+
+state 139
+
+    (64) NOTEMPTYLOOPLINE -> RETURNX . ;
+
+    ;               shift and go to state 160
+
+
+state 140
+
+    (65) NOTEMPTYLOOPLINE -> PRINTX . ;
+
+    ;               shift and go to state 161
+
+
+state 141
+
+    (66) NOTEMPTYLOOPLINE -> LOOPIFX .
+
+    ID              reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    IF              reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    WHILE           reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    FOR             reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    RETURN          reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    PRINT           reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    {               reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    $end            reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    }               reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    ELSE            reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    BREAK           reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+    CONTINUE        reduce using rule 66 (NOTEMPTYLOOPLINE -> LOOPIFX .)
+
+
+state 142
+
+    (67) NOTEMPTYLOOPLINE -> BREAK . ;
+
+    ;               shift and go to state 162
+
+
+state 143
+
+    (68) NOTEMPTYLOOPLINE -> CONTINUE . ;
+
+    ;               shift and go to state 163
+
+
+state 144
+
+    (69) LOOPBLOCK -> { . LOOPLINE }
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    LOOPLINE                       shift and go to state 164
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 145
+
+    (70) LOOPIFX -> IF . ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> IF . ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> IF . ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF . ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> IF . ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF . ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    (               shift and go to state 175
+
+
+state 146
+
+    (78) FORX -> FOR ID = EXPRESSION : . EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> FOR ID = EXPRESSION : . EXPRESSION LOOPBLOCK
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 176
+
+state 147
+
+    (35) MATRIXINSIDE -> TABLE , MATRIXINSIDE .
+
+    ]               reduce using rule 35 (MATRIXINSIDE -> TABLE , MATRIXINSIDE .)
+
+
+state 148
+
+    (38) VALUES -> EXPRESSION , VALUES .
+
+    ]               reduce using rule 38 (VALUES -> EXPRESSION , VALUES .)
+
+
+state 149
+
+    (27) ZEROSX -> ZEROS ( EXPRESSION ) .
+
+    ;               reduce using rule 27 (ZEROSX -> ZEROS ( EXPRESSION ) .)
+
+
+state 150
+
+    (28) ONESX -> ONES ( EXPRESSION ) .
+
+    ;               reduce using rule 28 (ONESX -> ONES ( EXPRESSION ) .)
+
+
+state 151
+
+    (29) EYEX -> EYE ( EXPRESSION ) .
+
+    ;               reduce using rule 29 (EYEX -> EYE ( EXPRESSION ) .)
+
+
+state 152
+
+    (21) IDX -> ID [ EXPRESSION ] = EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 21 (IDX -> ID [ EXPRESSION ] = EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 153
+
+    (22) IDX -> ID [ EXPRESSION , EXPRESSION ] . = EXPRESSION
+
+    =               shift and go to state 177
+
+
+state 154
+
+    (47) IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE . NOTEMPTYLINE
+    (48) IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE . BLOCK
+    (10) NOTEMPTYLINE -> . IDX ;
+    (11) NOTEMPTYLINE -> . IFX
+    (12) NOTEMPTYLINE -> . WHILEX
+    (13) NOTEMPTYLINE -> . FORX
+    (14) NOTEMPTYLINE -> . RETURNX ;
+    (15) NOTEMPTYLINE -> . PRINTX ;
+    (16) BLOCK -> . { LINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+
+    {               shift and go to state 17
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+
+    NOTEMPTYLINE                   shift and go to state 178
+    BLOCK                          shift and go to state 179
+    IDX                            shift and go to state 122
+    IFX                            shift and go to state 123
+    WHILEX                         shift and go to state 124
+    FORX                           shift and go to state 125
+    RETURNX                        shift and go to state 126
+    PRINTX                         shift and go to state 127
+
+state 155
+
+    (49) IFX -> IF ( CONDITION ) BLOCK ELSE . NOTEMPTYLINE
+    (50) IFX -> IF ( CONDITION ) BLOCK ELSE . BLOCK
+    (10) NOTEMPTYLINE -> . IDX ;
+    (11) NOTEMPTYLINE -> . IFX
+    (12) NOTEMPTYLINE -> . WHILEX
+    (13) NOTEMPTYLINE -> . FORX
+    (14) NOTEMPTYLINE -> . RETURNX ;
+    (15) NOTEMPTYLINE -> . PRINTX ;
+    (16) BLOCK -> . { LINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (45) IFX -> . IF ( CONDITION ) NOTEMPTYLINE
+    (46) IFX -> . IF ( CONDITION ) BLOCK
+    (47) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE
+    (48) IFX -> . IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK
+    (49) IFX -> . IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE
+    (50) IFX -> . IF ( CONDITION ) BLOCK ELSE BLOCK
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+
+    {               shift and go to state 17
+    ID              shift and go to state 11
+    IF              shift and go to state 12
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+
+    BLOCK                          shift and go to state 180
+    NOTEMPTYLINE                   shift and go to state 181
+    IDX                            shift and go to state 122
+    IFX                            shift and go to state 123
+    WHILEX                         shift and go to state 124
+    FORX                           shift and go to state 125
+    RETURNX                        shift and go to state 126
+    PRINTX                         shift and go to state 127
+
+state 156
+
+    (10) NOTEMPTYLINE -> IDX ; .
+
+    ELSE            reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    ID              reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    IF              reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    WHILE           reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    FOR             reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    RETURN          reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    PRINT           reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    {               reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    $end            reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+    }               reduce using rule 10 (NOTEMPTYLINE -> IDX ; .)
+
+
+state 157
+
+    (14) NOTEMPTYLINE -> RETURNX ; .
+
+    ELSE            reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    ID              reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    IF              reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    WHILE           reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    FOR             reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    RETURN          reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    PRINT           reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    {               reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    $end            reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+    }               reduce using rule 14 (NOTEMPTYLINE -> RETURNX ; .)
+
+
+state 158
+
+    (15) NOTEMPTYLINE -> PRINTX ; .
+
+    ELSE            reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    ID              reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    IF              reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    WHILE           reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    FOR             reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    RETURN          reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    PRINT           reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    {               reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    $end            reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+    }               reduce using rule 15 (NOTEMPTYLINE -> PRINTX ; .)
+
+
+state 159
+
+    (61) NOTEMPTYLOOPLINE -> IDX ; .
+
+    ID              reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    IF              reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    WHILE           reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    FOR             reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    RETURN          reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    PRINT           reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    {               reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    $end            reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    }               reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    ELSE            reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    BREAK           reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+    CONTINUE        reduce using rule 61 (NOTEMPTYLOOPLINE -> IDX ; .)
+
+
+state 160
+
+    (64) NOTEMPTYLOOPLINE -> RETURNX ; .
+
+    ID              reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    IF              reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    WHILE           reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    FOR             reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    RETURN          reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    PRINT           reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    {               reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    $end            reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    }               reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    ELSE            reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    BREAK           reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+    CONTINUE        reduce using rule 64 (NOTEMPTYLOOPLINE -> RETURNX ; .)
+
+
+state 161
+
+    (65) NOTEMPTYLOOPLINE -> PRINTX ; .
+
+    ID              reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    IF              reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    WHILE           reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    FOR             reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    RETURN          reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    PRINT           reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    {               reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    $end            reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    }               reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    ELSE            reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    BREAK           reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+    CONTINUE        reduce using rule 65 (NOTEMPTYLOOPLINE -> PRINTX ; .)
+
+
+state 162
+
+    (67) NOTEMPTYLOOPLINE -> BREAK ; .
+
+    ID              reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    IF              reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    WHILE           reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    FOR             reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    RETURN          reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    PRINT           reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    {               reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    $end            reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    }               reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    ELSE            reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    BREAK           reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+    CONTINUE        reduce using rule 67 (NOTEMPTYLOOPLINE -> BREAK ; .)
+
+
+state 163
+
+    (68) NOTEMPTYLOOPLINE -> CONTINUE ; .
+
+    ID              reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    IF              reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    WHILE           reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    FOR             reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    RETURN          reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    PRINT           reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    {               reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    $end            reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    }               reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    ELSE            reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    BREAK           reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+    CONTINUE        reduce using rule 68 (NOTEMPTYLOOPLINE -> CONTINUE ; .)
+
+
+state 164
+
+    (69) LOOPBLOCK -> { LOOPLINE . }
+
+    }               shift and go to state 182
+
+
+state 165
+
+    (51) LOOPLINE -> IDX . ; LOOPLINE
+
+    ;               shift and go to state 183
+
+
+state 166
+
+    (52) LOOPLINE -> WHILEX . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    WHILEX                         shift and go to state 166
+    LOOPLINE                       shift and go to state 184
+    IDX                            shift and go to state 165
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 167
+
+    (53) LOOPLINE -> FORX . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    FORX                           shift and go to state 167
+    LOOPLINE                       shift and go to state 185
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 168
+
+    (54) LOOPLINE -> RETURNX . ; LOOPLINE
+
+    ;               shift and go to state 186
+
+
+state 169
+
+    (55) LOOPLINE -> PRINTX . ; LOOPLINE
+
+    ;               shift and go to state 187
+
+
+state 170
+
+    (56) LOOPLINE -> LOOPBLOCK .
+
+    }               reduce using rule 56 (LOOPLINE -> LOOPBLOCK .)
+
+
+state 171
+
+    (57) LOOPLINE -> EMPTY .
+
+    }               reduce using rule 57 (LOOPLINE -> EMPTY .)
+
+
+state 172
+
+    (58) LOOPLINE -> LOOPIFX . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    LOOPIFX                        shift and go to state 172
+    LOOPLINE                       shift and go to state 188
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+
+state 173
+
+    (59) LOOPLINE -> BREAK . ; LOOPLINE
+
+    ;               shift and go to state 189
+
+
+state 174
+
+    (60) LOOPLINE -> CONTINUE . ; LOOPLINE
+
+    ;               shift and go to state 190
+
+
+state 175
+
+    (70) LOOPIFX -> IF ( . CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> IF ( . CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> IF ( . CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF ( . CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> IF ( . CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF ( . CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+    (80) CONDITION -> . EXPRESSION EQUAL EXPRESSION
+    (81) CONDITION -> . EXPRESSION UNEQUAL EXPRESSION
+    (82) CONDITION -> . EXPRESSION LESSEQUAL EXPRESSION
+    (83) CONDITION -> . EXPRESSION GREATEREQUAL EXPRESSION
+    (84) CONDITION -> . EXPRESSION > EXPRESSION
+    (85) CONDITION -> . EXPRESSION < EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    CONDITION                      shift and go to state 191
+    EXPRESSION                     shift and go to state 64
+
+state 176
+
+    (78) FORX -> FOR ID = EXPRESSION : EXPRESSION . NOTEMPTYLOOPLINE
+    (79) FORX -> FOR ID = EXPRESSION : EXPRESSION . LOOPBLOCK
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+    (61) NOTEMPTYLOOPLINE -> . IDX ;
+    (62) NOTEMPTYLOOPLINE -> . WHILEX
+    (63) NOTEMPTYLOOPLINE -> . FORX
+    (64) NOTEMPTYLOOPLINE -> . RETURNX ;
+    (65) NOTEMPTYLOOPLINE -> . PRINTX ;
+    (66) NOTEMPTYLOOPLINE -> . LOOPIFX
+    (67) NOTEMPTYLOOPLINE -> . BREAK ;
+    (68) NOTEMPTYLOOPLINE -> . CONTINUE ;
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+    BREAK           shift and go to state 142
+    CONTINUE        shift and go to state 143
+    {               shift and go to state 144
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    IF              shift and go to state 145
+
+    NOTEMPTYLOOPLINE               shift and go to state 192
+    LOOPBLOCK                      shift and go to state 193
+    IDX                            shift and go to state 136
+    WHILEX                         shift and go to state 137
+    FORX                           shift and go to state 138
+    RETURNX                        shift and go to state 139
+    PRINTX                         shift and go to state 140
+    LOOPIFX                        shift and go to state 141
+
+state 177
+
+    (22) IDX -> ID [ EXPRESSION , EXPRESSION ] = . EXPRESSION
+    (92) EXPRESSION -> . NUMBER
+    (93) EXPRESSION -> . FLOATNUMBER
+    (94) EXPRESSION -> . ID
+    (95) EXPRESSION -> . EXPRESSION + EXPRESSION
+    (96) EXPRESSION -> . EXPRESSION - EXPRESSION
+    (97) EXPRESSION -> . EXPRESSION * EXPRESSION
+    (98) EXPRESSION -> . EXPRESSION / EXPRESSION
+    (99) EXPRESSION -> . ( EXPRESSION )
+    (100) EXPRESSION -> . - EXPRESSION
+
+    NUMBER          shift and go to state 35
+    FLOATNUMBER     shift and go to state 36
+    ID              shift and go to state 37
+    (               shift and go to state 39
+    -               shift and go to state 38
+
+    EXPRESSION                     shift and go to state 194
+
+state 178
+
+    (47) IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .
+
+    ID              reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    IF              reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    WHILE           reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    FOR             reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    RETURN          reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    PRINT           reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    {               reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    $end            reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    }               reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+    ELSE            reduce using rule 47 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE NOTEMPTYLINE .)
+
+
+state 179
+
+    (48) IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .
+
+    ID              reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    IF              reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    WHILE           reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    FOR             reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    RETURN          reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    PRINT           reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    {               reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    $end            reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    }               reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+    ELSE            reduce using rule 48 (IFX -> IF ( CONDITION ) NOTEMPTYLINE ELSE BLOCK .)
+
+
+state 180
+
+    (50) IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .
+
+    ID              reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    IF              reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    WHILE           reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    FOR             reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    RETURN          reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    PRINT           reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    {               reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    $end            reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    }               reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+    ELSE            reduce using rule 50 (IFX -> IF ( CONDITION ) BLOCK ELSE BLOCK .)
+
+
+state 181
+
+    (49) IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .
+
+    ID              reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    IF              reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    WHILE           reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    FOR             reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    RETURN          reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    PRINT           reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    {               reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    $end            reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    }               reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+    ELSE            reduce using rule 49 (IFX -> IF ( CONDITION ) BLOCK ELSE NOTEMPTYLINE .)
+
+
+state 182
+
+    (69) LOOPBLOCK -> { LOOPLINE } .
+
+    ID              reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    IF              reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    WHILE           reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    FOR             reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    RETURN          reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    PRINT           reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    {               reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    $end            reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    }               reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    ELSE            reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    BREAK           reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+    CONTINUE        reduce using rule 69 (LOOPBLOCK -> { LOOPLINE } .)
+
+
+state 183
+
+    (51) LOOPLINE -> IDX ; . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    IDX                            shift and go to state 165
+    LOOPLINE                       shift and go to state 195
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 184
+
+    (52) LOOPLINE -> WHILEX LOOPLINE .
+
+    }               reduce using rule 52 (LOOPLINE -> WHILEX LOOPLINE .)
+
+
+state 185
+
+    (53) LOOPLINE -> FORX LOOPLINE .
+
+    }               reduce using rule 53 (LOOPLINE -> FORX LOOPLINE .)
+
+
+state 186
+
+    (54) LOOPLINE -> RETURNX ; . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    RETURNX                        shift and go to state 168
+    LOOPLINE                       shift and go to state 196
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 187
+
+    (55) LOOPLINE -> PRINTX ; . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    PRINTX                         shift and go to state 169
+    LOOPLINE                       shift and go to state 197
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 188
+
+    (58) LOOPLINE -> LOOPIFX LOOPLINE .
+
+    }               reduce using rule 58 (LOOPLINE -> LOOPIFX LOOPLINE .)
+
+
+state 189
+
+    (59) LOOPLINE -> BREAK ; . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    LOOPLINE                       shift and go to state 198
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 190
+
+    (60) LOOPLINE -> CONTINUE ; . LOOPLINE
+    (51) LOOPLINE -> . IDX ; LOOPLINE
+    (52) LOOPLINE -> . WHILEX LOOPLINE
+    (53) LOOPLINE -> . FORX LOOPLINE
+    (54) LOOPLINE -> . RETURNX ; LOOPLINE
+    (55) LOOPLINE -> . PRINTX ; LOOPLINE
+    (56) LOOPLINE -> . LOOPBLOCK
+    (57) LOOPLINE -> . EMPTY
+    (58) LOOPLINE -> . LOOPIFX LOOPLINE
+    (59) LOOPLINE -> . BREAK ; LOOPLINE
+    (60) LOOPLINE -> . CONTINUE ; LOOPLINE
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (17) EMPTY -> .
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 173
+    CONTINUE        shift and go to state 174
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    {               shift and go to state 144
+    }               reduce using rule 17 (EMPTY -> .)
+    IF              shift and go to state 145
+
+    LOOPLINE                       shift and go to state 199
+    IDX                            shift and go to state 165
+    WHILEX                         shift and go to state 166
+    FORX                           shift and go to state 167
+    RETURNX                        shift and go to state 168
+    PRINTX                         shift and go to state 169
+    LOOPBLOCK                      shift and go to state 170
+    EMPTY                          shift and go to state 171
+    LOOPIFX                        shift and go to state 172
+
+state 191
+
+    (70) LOOPIFX -> IF ( CONDITION . ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> IF ( CONDITION . ) LOOPBLOCK
+    (72) LOOPIFX -> IF ( CONDITION . ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF ( CONDITION . ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> IF ( CONDITION . ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF ( CONDITION . ) LOOPBLOCK ELSE LOOPBLOCK
+
+    )               shift and go to state 200
+
+
+state 192
+
+    (78) FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .
+
+    ID              reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    IF              reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    WHILE           reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    FOR             reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    RETURN          reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    PRINT           reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    {               reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    $end            reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    }               reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    ELSE            reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    BREAK           reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+    CONTINUE        reduce using rule 78 (FORX -> FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE .)
+
+
+state 193
+
+    (79) FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .
+
+    ID              reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    IF              reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    WHILE           reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    FOR             reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    RETURN          reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    PRINT           reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    {               reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    $end            reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    }               reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    ELSE            reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    BREAK           reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+    CONTINUE        reduce using rule 79 (FORX -> FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK .)
+
+
+state 194
+
+    (22) IDX -> ID [ EXPRESSION , EXPRESSION ] = EXPRESSION .
+    (95) EXPRESSION -> EXPRESSION . + EXPRESSION
+    (96) EXPRESSION -> EXPRESSION . - EXPRESSION
+    (97) EXPRESSION -> EXPRESSION . * EXPRESSION
+    (98) EXPRESSION -> EXPRESSION . / EXPRESSION
+
+    ;               reduce using rule 22 (IDX -> ID [ EXPRESSION , EXPRESSION ] = EXPRESSION .)
+    +               shift and go to state 67
+    -               shift and go to state 68
+    *               shift and go to state 69
+    /               shift and go to state 70
+
+
+state 195
+
+    (51) LOOPLINE -> IDX ; LOOPLINE .
+
+    }               reduce using rule 51 (LOOPLINE -> IDX ; LOOPLINE .)
+
+
+state 196
+
+    (54) LOOPLINE -> RETURNX ; LOOPLINE .
+
+    }               reduce using rule 54 (LOOPLINE -> RETURNX ; LOOPLINE .)
+
+
+state 197
+
+    (55) LOOPLINE -> PRINTX ; LOOPLINE .
+
+    }               reduce using rule 55 (LOOPLINE -> PRINTX ; LOOPLINE .)
+
+
+state 198
+
+    (59) LOOPLINE -> BREAK ; LOOPLINE .
+
+    }               reduce using rule 59 (LOOPLINE -> BREAK ; LOOPLINE .)
+
+
+state 199
+
+    (60) LOOPLINE -> CONTINUE ; LOOPLINE .
+
+    }               reduce using rule 60 (LOOPLINE -> CONTINUE ; LOOPLINE .)
+
+
+state 200
+
+    (70) LOOPIFX -> IF ( CONDITION ) . NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> IF ( CONDITION ) . LOOPBLOCK
+    (72) LOOPIFX -> IF ( CONDITION ) . NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF ( CONDITION ) . NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> IF ( CONDITION ) . LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF ( CONDITION ) . LOOPBLOCK ELSE LOOPBLOCK
+    (61) NOTEMPTYLOOPLINE -> . IDX ;
+    (62) NOTEMPTYLOOPLINE -> . WHILEX
+    (63) NOTEMPTYLOOPLINE -> . FORX
+    (64) NOTEMPTYLOOPLINE -> . RETURNX ;
+    (65) NOTEMPTYLOOPLINE -> . PRINTX ;
+    (66) NOTEMPTYLOOPLINE -> . LOOPIFX
+    (67) NOTEMPTYLOOPLINE -> . BREAK ;
+    (68) NOTEMPTYLOOPLINE -> . CONTINUE ;
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 142
+    CONTINUE        shift and go to state 143
+    {               shift and go to state 144
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    IF              shift and go to state 145
+
+    NOTEMPTYLOOPLINE               shift and go to state 201
+    LOOPBLOCK                      shift and go to state 202
+    IDX                            shift and go to state 136
+    WHILEX                         shift and go to state 137
+    FORX                           shift and go to state 138
+    RETURNX                        shift and go to state 139
+    PRINTX                         shift and go to state 140
+    LOOPIFX                        shift and go to state 141
+
+state 201
+
+    (70) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .
+    (72) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE . ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE . ELSE LOOPBLOCK
+
+    ID              reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    IF              reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    WHILE           reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    FOR             reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    RETURN          reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    PRINT           reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    {               reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    $end            reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    }               reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    BREAK           reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    CONTINUE        reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .)
+    ELSE            shift and go to state 203
+
+  ! ELSE            [ reduce using rule 70 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE .) ]
+
+
+state 202
+
+    (71) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .
+    (74) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK . ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK . ELSE LOOPBLOCK
+
+    ID              reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    IF              reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    WHILE           reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    FOR             reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    RETURN          reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    PRINT           reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    {               reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    $end            reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    }               reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    BREAK           reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    CONTINUE        reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .)
+    ELSE            shift and go to state 204
+
+  ! ELSE            [ reduce using rule 71 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK .) ]
+
+
+state 203
+
+    (72) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE . NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE . LOOPBLOCK
+    (61) NOTEMPTYLOOPLINE -> . IDX ;
+    (62) NOTEMPTYLOOPLINE -> . WHILEX
+    (63) NOTEMPTYLOOPLINE -> . FORX
+    (64) NOTEMPTYLOOPLINE -> . RETURNX ;
+    (65) NOTEMPTYLOOPLINE -> . PRINTX ;
+    (66) NOTEMPTYLOOPLINE -> . LOOPIFX
+    (67) NOTEMPTYLOOPLINE -> . BREAK ;
+    (68) NOTEMPTYLOOPLINE -> . CONTINUE ;
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 142
+    CONTINUE        shift and go to state 143
+    {               shift and go to state 144
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    IF              shift and go to state 145
+
+    NOTEMPTYLOOPLINE               shift and go to state 205
+    LOOPBLOCK                      shift and go to state 206
+    IDX                            shift and go to state 136
+    WHILEX                         shift and go to state 137
+    FORX                           shift and go to state 138
+    RETURNX                        shift and go to state 139
+    PRINTX                         shift and go to state 140
+    LOOPIFX                        shift and go to state 141
+
+state 204
+
+    (74) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE . NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE . LOOPBLOCK
+    (61) NOTEMPTYLOOPLINE -> . IDX ;
+    (62) NOTEMPTYLOOPLINE -> . WHILEX
+    (63) NOTEMPTYLOOPLINE -> . FORX
+    (64) NOTEMPTYLOOPLINE -> . RETURNX ;
+    (65) NOTEMPTYLOOPLINE -> . PRINTX ;
+    (66) NOTEMPTYLOOPLINE -> . LOOPIFX
+    (67) NOTEMPTYLOOPLINE -> . BREAK ;
+    (68) NOTEMPTYLOOPLINE -> . CONTINUE ;
+    (69) LOOPBLOCK -> . { LOOPLINE }
+    (18) IDX -> . ID = EXPRESSION
+    (19) IDX -> . ID = MATRIX
+    (20) IDX -> . ID = TABLE
+    (21) IDX -> . ID [ EXPRESSION ] = EXPRESSION
+    (22) IDX -> . ID [ EXPRESSION , EXPRESSION ] = EXPRESSION
+    (23) IDX -> . ID ADDASSIGN EXPRESSION
+    (24) IDX -> . ID SUBASSIGN EXPRESSION
+    (25) IDX -> . ID MULASSIGN EXPRESSION
+    (26) IDX -> . ID DIVASSIGN EXPRESSION
+    (76) WHILEX -> . WHILE ( CONDITION ) NOTEMPTYLOOPLINE
+    (77) WHILEX -> . WHILE ( CONDITION ) LOOPBLOCK
+    (78) FORX -> . FOR ID = EXPRESSION : EXPRESSION NOTEMPTYLOOPLINE
+    (79) FORX -> . FOR ID = EXPRESSION : EXPRESSION LOOPBLOCK
+    (91) RETURNX -> . RETURN EXPRESSION
+    (86) PRINTX -> . PRINT PRINTMANY
+    (70) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE
+    (71) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK
+    (72) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
+    (73) LOOPIFX -> . IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK
+    (74) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+    (75) LOOPIFX -> . IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK
+
+    BREAK           shift and go to state 142
+    CONTINUE        shift and go to state 143
+    {               shift and go to state 144
+    ID              shift and go to state 11
+    WHILE           shift and go to state 13
+    FOR             shift and go to state 14
+    RETURN          shift and go to state 15
+    PRINT           shift and go to state 16
+    IF              shift and go to state 145
+
+    LOOPBLOCK                      shift and go to state 207
+    NOTEMPTYLOOPLINE               shift and go to state 208
+    IDX                            shift and go to state 136
+    WHILEX                         shift and go to state 137
+    FORX                           shift and go to state 138
+    RETURNX                        shift and go to state 139
+    PRINTX                         shift and go to state 140
+    LOOPIFX                        shift and go to state 141
+
+state 205
+
+    (72) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .
+
+    ID              reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    IF              reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    WHILE           reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    FOR             reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    RETURN          reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    PRINT           reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    {               reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    $end            reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    }               reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    ELSE            reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    BREAK           reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+    CONTINUE        reduce using rule 72 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE .)
+
+
+state 206
+
+    (73) LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .
+
+    ID              reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    IF              reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    WHILE           reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    FOR             reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    RETURN          reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    PRINT           reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    {               reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    $end            reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    }               reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    ELSE            reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    BREAK           reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+    CONTINUE        reduce using rule 73 (LOOPIFX -> IF ( CONDITION ) NOTEMPTYLOOPLINE ELSE LOOPBLOCK .)
+
+
+state 207
+
+    (75) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .
+
+    ID              reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    IF              reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    WHILE           reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    FOR             reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    RETURN          reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    PRINT           reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    {               reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    $end            reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    }               reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    ELSE            reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    BREAK           reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+    CONTINUE        reduce using rule 75 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE LOOPBLOCK .)
+
+
+state 208
+
+    (74) LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .
+
+    ID              reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    IF              reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    WHILE           reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    FOR             reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    RETURN          reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    PRINT           reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    {               reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    $end            reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    }               reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    ELSE            reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    BREAK           reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+    CONTINUE        reduce using rule 74 (LOOPIFX -> IF ( CONDITION ) LOOPBLOCK ELSE NOTEMPTYLOOPLINE .)
+
