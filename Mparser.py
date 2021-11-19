@@ -46,13 +46,13 @@ def p_line(p):
     p[0] = p[1]
 
 
-def p_notemptyline(p):
-    """NOTEMPTYLINE : IDX ';'
-                    | IFX
-                    | WHILEX
-                    | FORX
-                    | RETURNX ';'
-                    | PRINTX ';' """
+def p_oneline(p):
+    """ONELINE : IDX ';'
+                | IFX
+                | WHILEX
+                | FORX
+                | RETURNX ';'
+                | PRINTX ';' """
     p[0] = p[1]
 
 
@@ -148,11 +148,11 @@ def p_matrixop(p):
 
 # IF
 def p_ifx_if(p):
-    """IFX :    IF '(' CONDITION ')' NOTEMPTYLINE %prec IFS
+    """IFX :    IF '(' CONDITION ')' ONELINE %prec IFS
             |   IF '(' CONDITION ')' BLOCK %prec IFS
-            |   IF '(' CONDITION ')' NOTEMPTYLINE ELSE NOTEMPTYLINE
-            |   IF '(' CONDITION ')' NOTEMPTYLINE ELSE BLOCK
-            |   IF '(' CONDITION ')' BLOCK ELSE NOTEMPTYLINE
+            |   IF '(' CONDITION ')' ONELINE ELSE ONELINE
+            |   IF '(' CONDITION ')' ONELINE ELSE BLOCK
+            |   IF '(' CONDITION ')' BLOCK ELSE ONELINE
             |   IF '(' CONDITION ')' BLOCK ELSE BLOCK """
 
 
@@ -163,7 +163,7 @@ def p_loopline(p):
                 | FORX LOOPLINE
                 | RETURNX ';' LOOPLINE
                 | PRINTX ';' LOOPLINE
-                | LOOPBLOCK
+                | LOOPBLOCK LOOPLINE
                 | EMPTY
                 | LOOPIFX LOOPLINE
                 | BREAK ';' LOOPLINE
@@ -171,15 +171,15 @@ def p_loopline(p):
     p[0] = p[1]
 
 
-def p_notemptyloopline(p):
-    """NOTEMPTYLOOPLINE : IDX ';'
-                        | WHILEX
-                        | FORX
-                        | RETURNX ';'
-                        | PRINTX ';'
-                        | LOOPIFX
-                        | BREAK ';'
-                        | CONTINUE ';' """
+def p_oneloopline(p):
+    """ONELOOPLINE : IDX ';'
+                    | WHILEX
+                    | FORX
+                    | RETURNX ';'
+                    | PRINTX ';'
+                    | LOOPIFX
+                    | BREAK ';'
+                    | CONTINUE ';' """
     p[0] = p[1]
 
 
@@ -188,23 +188,23 @@ def p_loopblock(p):
 
 
 def p_loopifx_if(p):
-    """LOOPIFX :    IF '(' CONDITION ')' NOTEMPTYLOOPLINE %prec IFS
+    """LOOPIFX :    IF '(' CONDITION ')' ONELOOPLINE %prec IFS
                 |   IF '(' CONDITION ')' LOOPBLOCK %prec IFS
-                |   IF '(' CONDITION ')' NOTEMPTYLOOPLINE ELSE NOTEMPTYLOOPLINE
-                |   IF '(' CONDITION ')' NOTEMPTYLOOPLINE ELSE LOOPBLOCK
-                |   IF '(' CONDITION ')' LOOPBLOCK ELSE NOTEMPTYLOOPLINE
+                |   IF '(' CONDITION ')' ONELOOPLINE ELSE ONELOOPLINE
+                |   IF '(' CONDITION ')' ONELOOPLINE ELSE LOOPBLOCK
+                |   IF '(' CONDITION ')' LOOPBLOCK ELSE ONELOOPLINE
                 |   IF '(' CONDITION ')' LOOPBLOCK ELSE LOOPBLOCK """
 
 
 # WHILE
 def p_whilex(p):
-    """WHILEX : WHILE '(' CONDITION ')' NOTEMPTYLOOPLINE
+    """WHILEX : WHILE '(' CONDITION ')' ONELOOPLINE
                 | WHILE '(' CONDITION ')' LOOPBLOCK"""
 
 
 # FOR
 def p_forx(p):
-    """FORX : FOR ID '=' EXPRESSION ':' EXPRESSION NOTEMPTYLOOPLINE
+    """FORX : FOR ID '=' EXPRESSION ':' EXPRESSION ONELOOPLINE
             | FOR ID '=' EXPRESSION ':' EXPRESSION LOOPBLOCK"""
 
 
@@ -226,8 +226,8 @@ def p_printx(p):
 def p_printmany(p):
     """PRINTMANY :  STRING
                 |  EXPRESSION
-                |  EXPRESSION ',' PRINTMANY
-                |  STRING ',' PRINTMANY"""
+                |  STRING ',' PRINTMANY
+                |  EXPRESSION ',' PRINTMANY"""
 
 
 # return
